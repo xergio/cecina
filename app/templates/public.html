@@ -1,0 +1,35 @@
+<!-- 'HTML-style' HTML5 -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Sample layout</title>
+
+        <style type="text/css">
+            * {
+                font-family: sans-serif;
+            }
+
+            header#header {
+                border-bottom: 1px solid #888;
+            }
+
+            footer#footer {
+                font-size: .7em;
+                text-align: right;
+            }
+        </style>
+    </head>
+
+    <body>
+        <header id="header">
+            <h1>Nice!</h1>
+        </header>
+
+        <div id="content">
+            <?=$fullcontent?>
+        </div>
+
+        <footer id="footer">Sergio Álvarez - xergio@gmail.com</footer>
+    </body>
+</html>
