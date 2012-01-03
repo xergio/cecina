@@ -3,7 +3,7 @@ Things to get in mind:
 
 Configure your web server to handle all requests to public/index.php
 
-The rest of files have the same name that the class.
+The rest of files have the same name than the class.
 
 Default controller name: AppController
 
@@ -23,7 +23,7 @@ The executed action returns the template variables, and they are available in $t
 
 The templates are in templates/ folder
 - There is a default public.html layout
-- Each action have a template with this format: controller/action.html 
+- Each action has a template with this format: controller/action.html 
 
 Im planning to add support for medias (html, json, xml...), for now .html by default without other options.
 
@@ -31,7 +31,7 @@ In templates you can use the returned vars by the action in flat format like <?=
 
 To start, simply extend the AppController class and overwrite the "index" action if you want.
 
-Too much work to do!
+Too much work left to do!
 
 
 Apache configuration example:
