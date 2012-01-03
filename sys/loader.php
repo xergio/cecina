@@ -43,4 +43,7 @@ function shutdown() {
 }
 
 
+$config = new Config();
+
+
 //clog("Starting!");

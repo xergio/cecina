@@ -32,3 +32,18 @@ In templates you can use the returned vars by the action in flat format like <?=
 To start, simply extend the AppController class and overwrite the "index" action if you want.
 
 Too much work to do!
+
+
+Apache configuration example:
+
+<VirtualHost *:80>
+    ServerName dev.server
+
+    DocumentRoot /var/www/cecina/public
+
+    <IfModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-f
+        RewriteRule ^(.*)$ /var/www/cecina/public/index.php [L]
+    </IfModule>
+</VirtualHost>
