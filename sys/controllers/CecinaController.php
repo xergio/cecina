@@ -9,21 +9,17 @@ class CecinaController {
 
         preg_match("#^/(?P<controller>[^/]+)(/(?P<action>[^/]+))?(/(?P<params>.*))?#", $path, $m);
 
-        $this->context = array('server' => $_SERVER);
-        $this->context['controller']    = $m["controller"]? strtolower($m["controller"]): $config->default_controller;
-        $this->context['action']        = $m["action"]? strtolower($m["action"]): $config->default_action;
-        $this->context['layout']        = $config->default_layout;
-        $this->context['media']         = $config->default_media; // future media support: html, json, xml...
-        $this->params                   = $m["params"]? preg_split("#/#", $m["params"]): array();
-        $this->request                  = $_REQUEST;
+        $this->context = new Context($m);
+        $this->params = (array_key_exists("params", $m) and $m["params"])? preg_split("#/#", $m["params"]): array();
+        $this->request = $_REQUEST;
 
         $this->result = array();
     }
 
 
     function dispatch() {
-        $controller = ucfirst($this->context['controller']) ."Controller";
-        $action = $this->context['action'];
+        $controller = ucfirst($this->context->controller) ."Controller";
+        $action = $this->context->action;
 
         $run = new $controller($this->context, $this->params, $this->request);
 
@@ -38,7 +34,7 @@ class CecinaController {
 
     function render() {
         try {
-            $t = new View($this->result, $this->context, $this->params, $this->request);
+            $t = new View($this->context, $this->result, $this->params, $this->request);
             return $t->render();
             
         } catch (Exception $e) {

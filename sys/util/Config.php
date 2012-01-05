@@ -28,8 +28,6 @@ class Config {
 
 
     private function load($file) {
-        clog("Config ". $file);
-        
         if (file_exists($file)) {
             require_once($file);
             foreach ((array)get_object_vars($config) as $k => $v)

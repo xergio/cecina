@@ -34,6 +34,8 @@ function __autoload($class_name) {
             if ( __include(BASEPATH . DS . $folder . DS . $sub . DS . $class_name .".php") )
                 return true;
 
+    if (preg_match("#Exception$#", $class_name)) return eval("class ". $class_name ." extends CustomException { }");
+
     die("autoload fail in ". $class_name .".");
 }
 
@@ -45,5 +47,9 @@ function shutdown() {
 
 $config = new Config();
 
+
+//$old_error_handler = set_error_handler("exception_error_handler");
+$old_error_handler = set_error_handler(array("CustomException", "handle_error"));
+$old_exception_handler = set_exception_handler(array("CustomException", "handle_exception"));
 
 //clog("Starting!");

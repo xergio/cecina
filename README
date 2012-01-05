@@ -14,7 +14,7 @@ The bootstrap is in sys/loader.php
 The URL format is: /controller/action/some/extra/and/optional/params?query=string
 
 In each app controller there are some predefined variables:
-- $this->context = data about routing and environment
+- $this->context = object with routing and environment data
 - $this->params = this extra params of the URL
 - $this->request = $_REQUEST
 - $this->result for "after" method

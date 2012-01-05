@@ -27,11 +27,12 @@
 
     <body>
         <header id="header">
-            <h1>Nice!</h1>
+            <h1>Error <?=$code?></h1>
         </header>
 
         <div id="content">
-            <?=$fullcontent?>
+            <p><?=$error?></p>
+            <? if (DEBUG) { ?><pre><?=$trace?></pre><? } ?>
         </div>
 
         <footer id="footer">Sergio Álvarez - xergio@gmail.com</footer>
