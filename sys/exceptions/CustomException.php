@@ -35,6 +35,8 @@ class CustomException extends Exception {
     static function handle_exception($exception) {
     	global $config;
 
+        header("HTTP/1.1 500 Internal Server Error");
+
         $tpl = new View(
             new Context(array("layout" => $config->default_error_tpl)),
 	        array("error" => $exception->getMessage(), "code" => "500", "trace" => str_replace(" ". BASEPATH. "/", " ", $exception->getTraceAsString()) )
@@ -47,6 +49,8 @@ class CustomException extends Exception {
         if ($errno == E_NOTICE) return;
 
         global $config;
+
+        header("HTTP/1.1 500 Internal Server Error");
 
         $tpl = new View(
             new Context(array("layout" => $config->default_error_tpl)), 
