@@ -41,6 +41,10 @@ function __autoload($class_name) {
 
 
 function shutdown() {
+    $error = error_get_last(); 
+    if (!is_null($error) and $error['type'] == 1)
+        call_user_func(array("CustomException", "handle_fatal_error"), $error);
+
     closelog();
 }
 

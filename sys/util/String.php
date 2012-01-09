@@ -34,7 +34,7 @@ class String {
                         $args .= "\"$a\"";
                         break;
                     case 'array':
-                        $args .= 'Array('.count($a).')';
+                        $args .= 'array('.count($a).')';
                         break;
                     case 'object':
                         $args .= 'Object('.get_class($a).')';
@@ -43,10 +43,10 @@ class String {
                         $args .= 'Resource('.strstr($a, '#').')';
                         break;
                     case 'boolean':
-                        $args .= $a ? 'True' : 'False';
+                        $args .= $a ? 'true' : 'false';
                         break;
                     case 'NULL':
-                        $args .= 'Null';
+                        $args .= 'null';
                         break;
                     default:
                         $args .= 'Unknown';
