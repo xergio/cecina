@@ -26,7 +26,7 @@ function __include($file) {
 
 
 function __autoload($class_name) {
-    $mainfolders = array("sys", "app");
+    $mainfolders = array("app", "sys");
     $subfolders = array("etc", "exceptions", "controllers", "models", "util");
 
     foreach ($mainfolders as $folder)
