@@ -26,6 +26,7 @@ class CustomException extends Exception {
         $this->ip           = Net::client_ip();
         $this->referer      = $_SERVER["HTTP_REFERER"];
         $this->user_agent   = $_SERVER["HTTP_USER_AGENT"];
+        $this->request		= strstr($_SERVER["SCRIPT_URI"], ':', true) ."://". $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
         $this->hostname     = php_uname('n');
 
         parent::__construct($message, $code, $previous);

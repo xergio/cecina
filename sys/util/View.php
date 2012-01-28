@@ -1,11 +1,15 @@
 <?php
 
 class View {
+	
+	protected $_context;
+	protected $_request;
+	protected $_vars;
+	
     
-    function __construct($context, $vars=array(), $params=array(), $request=array()) {
+    function __construct($context, $vars=array(), $request=array()) {
         $this->_context = $context;
         $this->_vars = $vars;
-        $this->_params = $params;
         $this->_request = $request;
     }
 
@@ -16,9 +20,11 @@ class View {
     	foreach ((array)$this->_vars as $_name => $_value)
     		$$_name = $_value;
 
-    	foreach (array("params", "request") as $_type)
-	    	foreach ((array)$this->{"_". $_type} as $_name => $_value)
-	    		${$_type}[$_name] = $_value;
+    	$request = array();
+	    foreach ((array)$this->_request as $_name => $_value)
+	    	$request[$_name] = $_value;
+	    
+	    $context = $this->_context->basic_info();
 
 
         if ($load_template)

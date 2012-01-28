@@ -6,8 +6,7 @@ class Config {
 
 
     public function __construct() {
-        $this->load(BASEPATH . DS . "sys/etc/common.php");
-        $this->load(BASEPATH . DS . "app/etc/". $this->env() .".php");
+        $this->load(BASEPATH . DS . "settings.php");
     }
 
 
@@ -18,12 +17,6 @@ class Config {
 
     public function __get($key) {
         return $this->_data[$key];
-    }
-
-
-    private function env() {
-        if (get_cfg_var('server_environment')) return get_cfg_var('server_environment');
-        return (get_cfg_var('dev_server')) ? "dev": "prod";
     }
 
 

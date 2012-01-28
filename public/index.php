@@ -2,7 +2,7 @@
 
 define('DEBUG', true);
 
-require_once("../sys/loader.php");
+require_once("../loader.php");
 
 $app = new CecinaController();
 $app->dispatch();

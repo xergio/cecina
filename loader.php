@@ -1,6 +1,6 @@
 <?php
 
-define('BASEPATH', dirname(dirname(__FILE__)));
+define('BASEPATH', dirname(__FILE__));
 define('DS', DIRECTORY_SEPARATOR);
 
 
@@ -27,7 +27,7 @@ function __include($file) {
 
 function __autoload($class_name) {
     $mainfolders = array("app", "sys");
-    $subfolders = array("etc", "exceptions", "controllers", "models", "util");
+    $subfolders = array("exceptions", "controllers", "models", "util");
 
     foreach ($mainfolders as $folder)
         foreach ($subfolders as $sub)

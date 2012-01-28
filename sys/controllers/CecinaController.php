@@ -1,40 +1,40 @@
 <?php
 
 class CecinaController {
+	
+	private $_context;
+	private $_request;
+	private $_result;
+	
 
     function __construct() {
         global $config;
 
-        $path = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
+        $this->_context = new Context();
+        $this->_request = $_REQUEST;
 
-        preg_match("#^/(?P<controller>[^/]+)(/(?P<action>[^/]+))?(/(?P<params>.*))?#", $path, $m);
-
-        $this->context = new Context($m);
-        $this->params = (array_key_exists("params", $m) and $m["params"])? preg_split("#/#", $m["params"]): array();
-        $this->request = $_REQUEST;
-
-        $this->result = array();
+        $this->_result = array();
     }
 
 
     function dispatch() {
-        $controller = ucfirst($this->context->controller) ."Controller";
-        $action = $this->context->action;
+        $controller = ucfirst($this->_context->controller) ."Controller";
+        $action = $this->_context->action;
 
-        $run = new $controller($this->context, $this->params, $this->request);
+        $run = new $controller($this->_context, $this->_request);
 
         if (!method_exists($run, $action))
-            throw new Exception('Action not found.');
+            throw new Exception("Action '$action' not found.");
 
         $run->before();
-        $this->result = $run->$action();
+        $this->_result = $run->$action();
         $run->after();
     }
 
 
     function render() {
         try {
-            $t = new View($this->context, $this->result, $this->params, $this->request);
+            $t = new View($this->_context, $this->_result, $this->_request);
             return $t->render();
             
         } catch (Exception $e) {
