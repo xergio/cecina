@@ -8,7 +8,7 @@ The rest of files have the same name than the class.
 Default controller name: AppController
 Default action name: index
 
-The bootstrap is loader.php
+The bootstrap is in sys/loader.php. Include it to load the entire app as you can see in the index.php
 
 The URL format is: /controller/action/some/extra/and/optional/params?query=string
 
@@ -28,6 +28,8 @@ Im planning to add support for medias (html, json, xml...), for now .html by def
 In templates you can use the returned vars by the action in flat format like <?=$var_name?>, or one of $request or $context as array.
 
 To start, simply extend the AppController class and overwrite the "index" action if you want.
+
+Browse to /test to see how exceptions work.
 
 Too much work left to do!
 
