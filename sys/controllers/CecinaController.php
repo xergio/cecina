@@ -28,6 +28,7 @@ class CecinaController {
 
         $run->before();
         $this->_result = $run->$action();
+        $run->result = &$this->_result;
         $run->after();
     }
 

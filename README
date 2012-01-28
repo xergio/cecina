@@ -6,28 +6,26 @@ Configure your web server to handle all requests to public/index.php
 The rest of files have the same name than the class.
 
 Default controller name: AppController
-
 Default action name: index
 
-The bootstrap is in sys/loader.php
+The bootstrap is loader.php
 
 The URL format is: /controller/action/some/extra/and/optional/params?query=string
 
 In each app controller there are some predefined variables:
-- $this->context = object with routing and environment data
-- $this->params = this extra params of the URL
+- $this->context = object with routing and environment data and extra params in the path
 - $this->request = $_REQUEST
 - $this->result for "after" method
 
-The executed action returns the template variables, and they are available in $this->result
+The executed action returns the template variables
 
 The templates are in templates/ folder
-- There is a default public.html layout
+- There is a default public.html and error.html layouts
 - Each action has a template with this format: controller/action.html 
 
 Im planning to add support for medias (html, json, xml...), for now .html by default without other options.
 
-In templates you can use the returned vars by the action in flat format like <?=$var_name?>, or one of $request, $params or $context as array.
+In templates you can use the returned vars by the action in flat format like <?=$var_name?>, or one of $request or $context as array.
 
 To start, simply extend the AppController class and overwrite the "index" action if you want.
 

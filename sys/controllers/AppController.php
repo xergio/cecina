@@ -9,7 +9,7 @@ class AppController {
 	function __construct($context, $request) {
 		$this->context = $context;
 		$this->request = $request;
-		$this->params = $params;
+		$this->params = $context->params;
 	}
 	
 	function before() {
