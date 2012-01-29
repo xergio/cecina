@@ -8,7 +8,7 @@
 class DB {
 
 	public static $_connection = null;
-
+	
 	public $_sql = "";
 	public $_table = "";
 	public $_fields = array();
@@ -32,14 +32,24 @@ class DB {
 	}
 
 
+	public function get_attributes() {
+		$filter = array();
+		foreach ($this->_fields as $k => $v)
+			if (property_exists($this, $k))
+				$filter[$k] = $this->$k;
+		return $filter;
+	}
+
+
 	public function connect() {
 		if (!is_null(DB::$_connection)) return;
 
 		global $config;
 
-		if (!(DB::$_connection = mysql_connect($config->db_host, $config->db_user, $config->db_pass)) 
+		if (!(DB::$_connection = mysql_pconnect($config->db_host, $config->db_user, $config->db_pass)) 
 		or !mysql_select_db($config->db_name))
 			throw new Exception(@mysql_error());
+		mysql_set_charset("UTF8", DB::$_connection);
 	}
 
 
@@ -55,10 +65,11 @@ class DB {
 			throw new Exception("Invalid field");
 
 		$spec = $this->_fields[$field];
-
+		
 		switch ($spec[0]) {
 			case "varchar":
 				return "'". String::mysql_escape(substr($value, 0, $spec[1])) ."'";
+			case "datetime":
 			case "char":
 			case "text":
 				return "'". String::mysql_escape($value) ."'";
@@ -81,66 +92,28 @@ class DB {
 			    $return[] = $this->build_object($row);
 			}
 
+			mysql_free_result($result);
+
 		} else {
 			$return = mysql_affected_rows();
 		}
-
-		mysql_free_result($result);
 
 		return $return;
 	}
 
 
-	function select($fields=array("*")) {
-		
-		$this->_sql = "";
-		$this->_sql .= "SELECT ". implode(", ", $fields) ." FROM ". $this->_table;
-		return $this;
-	}
-
-
 	function insert() {
+		$filter = $this->get_attributes();
 		
-		$this->_sql = "";
-		$this->_sql .= "INSERT INTO ". $this->_table;
-		return $this;
-	}
-
-
-	function update() {
+		$values = array();
+		foreach ($filter as $k => $v)
+			$values[] = $this->quote($k, $v);
 		
-		$this->_sql = "";
-		$this->_sql .= "UPDATE ". $this->_table;
-		return $this;
-	}
+		$sql = "INSERT INTO ". $this->_table ." (". implode(", ", array_keys($filter)) .") VALUES (". implode(", ", $values) .")";
 
-
-	function delete() {
-		
-		$this->_sql = "";
-		$this->_sql .= "DELETE FROM ". $this->_table;
-		return $this;
-	}
-
-
-	function where($mixed) {
-		$where = array();
-
-		if (is_array($mixed)) {
-			foreach ((array)$mixed as $k => $v)
-				$where[] = $k ."=". $this->quote($k, $v);
-
-		} elseif ($mixed) {
-			$where[] = "id = ". $mixed;
-		}
-
-		$this->_sql .= " WHERE ". implode(" AND ", $where);
-		return $this;
-	}
-
-
-	function go() {
-		return $this->query($this->_sql);
+		if (!($return = $this->query($sql)))
+			throw new Exception(@mysql_error());
+		return $return;
 	}
 
 

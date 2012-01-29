@@ -6,7 +6,7 @@ define('DS', DIRECTORY_SEPARATOR);
 
 if (DEBUG) {
     openlog("cecina", LOG_PID, LOG_LOCAL0);
-    register_shutdown_function("shutdown");
+    //register_shutdown_function("shutdown");
 
     function clog($str, $mode=LOG_INFO) {
         syslog($mode, $str);
@@ -39,7 +39,7 @@ function __autoload($class_name) {
     die("autoload fail in ". $class_name .".");
 }
 
-
+/*
 function shutdown() {
     $error = error_get_last(); 
     if (!is_null($error) and $error['type'] == 1)
@@ -47,7 +47,7 @@ function shutdown() {
 
     closelog();
 }
-
+*/
 
 $config = new Config();
 

@@ -35,6 +35,8 @@ class CecinaController {
 
     function render() {
         try {
+        	header("Content-Type: text/". $this->_context->media ."; charset=utf-8");
+        	
             $t = new View($this->_context, $this->_result, $this->_request);
             return $t->render();
             

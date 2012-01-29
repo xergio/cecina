@@ -25,6 +25,8 @@ class View {
 	    	$request[$_name] = $_value;
 	    
 	    $context = $this->_context->basic_info();
+	    
+	    $notify = Notify::$strings;
 
 
         if ($load_template)

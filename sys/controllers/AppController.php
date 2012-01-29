@@ -25,4 +25,10 @@ class AppController {
 	function after() {
 		// this will by executed AFTER the action
 	}
+	
+	
+	function redirect($location) {
+		header("Location: ". $location);
+		die();
+	}
 }
