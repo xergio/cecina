@@ -39,7 +39,7 @@ class CustomException extends Exception {
         header("HTTP/1.1 500 Internal Server Error");
 
         $tpl = new View(
-            new Context(array("layout" => $config->default_error_tpl)),
+            new Context(array("layout" => $config->default_error_tpl, "media" => "html")), // atm, only HTML errors
 	        array("error" => $exception->getMessage(), "code" => "500", "trace" => str_replace(" ". BASEPATH. "/", " ", $exception->getTraceAsString()) )
 	    );
         die($tpl->render(false));
@@ -54,7 +54,7 @@ class CustomException extends Exception {
         header("HTTP/1.1 500 Internal Server Error");
 
         $tpl = new View(
-            new Context(array("layout" => $config->default_error_tpl)), 
+            new Context(array("layout" => $config->default_error_tpl, "media" => "html")),  // atm, only HTML errors
             array("error" => $errstr, "code" => "#". CustomException::$reverse_errors[$errno], "trace" => String::trace_to_str(debug_backtrace()) )
         );
         die($tpl->render(false));

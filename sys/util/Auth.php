@@ -11,4 +11,9 @@ class Auth {
 		
 		return array_key_exists('auth', $_SESSION);
 	}
+	
+	static function ok() {
+		self::start();
+		$_SESSION['auth'] = true;
+	}
 }

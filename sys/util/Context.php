@@ -23,10 +23,10 @@ class Context {
 
         $this->layout       = $config->default_layout;
         
-        $this->media        = $config->default_media; // future media support: html, json, xml...
-        /*$this->media 		= (array_key_exists("media", $parsed_path) and $parsed_path["media"])?
+        //$this->media        = $config->default_media; // future media support: html, json, xml...
+        $this->media 		= (array_key_exists("media", $parsed_path) and $parsed_path["media"])?
             strtolower($parsed_path["media"]): 
-            $config->default_media;*/
+            $config->default_media;
         
         $this->params 		= (array_key_exists("params", $parsed_path) and $parsed_path["params"])? 
         	preg_split("#/#", $parsed_path["params"]): 

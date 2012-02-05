@@ -17,10 +17,18 @@ if (DEBUG) {
 }
 
 
-function __include($file) {
+function __require($file) {
     if ( !file_exists($file) ) return false;
 
     require_once($file);
+    return true;
+}
+
+
+function __include_once($file) {
+    if ( !file_exists($file) ) return false;
+
+    include_once($file);
     return true;
 }
 
@@ -31,7 +39,7 @@ function __autoload($class_name) {
 
     foreach ($mainfolders as $folder)
         foreach ($subfolders as $sub)
-            if ( __include(BASEPATH . DS . $folder . DS . $sub . DS . $class_name .".php") )
+            if ( __require(BASEPATH . DS . $folder . DS . $sub . DS . $class_name .".php") )
                 return true;
 
     if (preg_match("#Exception$#", $class_name)) return eval("class ". $class_name ." extends CustomException { }");

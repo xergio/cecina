@@ -12,7 +12,6 @@ class CecinaController {
 
         $this->_context = new Context();
         $this->_request = $_REQUEST;
-
         $this->_result = array();
     }
 
@@ -35,8 +34,6 @@ class CecinaController {
 
     function render() {
         try {
-        	header("Content-Type: text/". $this->_context->media ."; charset=utf-8");
-        	
             $t = new View($this->_context, $this->_result, $this->_request);
             return $t->render();
             
