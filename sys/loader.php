@@ -1,6 +1,6 @@
 <?php
 
-define('BASEPATH', dirname(dirname(__FILE__)));
+define('BASEPATH', dirname(dirname($_SERVER["SCRIPT_FILENAME"])));
 define('DS', DIRECTORY_SEPARATOR);
 
 
